@@ -1,5 +1,5 @@
-module FibError
-  (FibError (..)) where
+module FizzError
+  (FizzError (..)) where
 
 
 -- FizzBuzzFib can fail with bad input three ways: 
@@ -8,12 +8,13 @@ module FibError
 --   or you didn't provide any data at all
 --   FibError captures this
 
-data FibError
+data FizzError
   = NotAnInteger
   | OnlyOne
   | NoInput
+    deriving Eq
 
-instance Show FibError where
+instance Show FizzError where
   show NotAnInteger = "not an integer"
   show OnlyOne      = "Just pass in one number that decribes how many" ++
                       " fibonacci numbers you want for fizzbuzz."

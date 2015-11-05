@@ -35,3 +35,17 @@ The major feature of this driver function is that it leverages the Either Monad.
 
 Without this property, Either would require a staircase of case statements.
 In this function, it would only be 2 levels deep, but still - yuck.
+
+HowTo Install
+
+Without Docker -
+
+1) Install stack, if it's absent - https://github.com/commercialhaskell/stack#how-to-install
+
+2) git clone https://github.com/mlitchard/fizzbuzzfib.git
+
+3) cd fizzbuzzfib && stack setup - stack setup will insure you are using the ghc fizzbuzzfib expects
+
+4) stack build
+
+5) /home/$HOME/fizzbuzzfib/.stack-work/install/x86_64-linux/lts-2.19/7.8.4/bin

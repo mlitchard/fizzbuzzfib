@@ -5,7 +5,7 @@ module FizzBuzz
     ,fizzBuzzFib
     ) where
 
-import FibError
+import FizzError
 import Input
 import Data.Semigroup ((<>),getOption)
 import Data.Maybe (fromMaybe)
@@ -20,7 +20,7 @@ import Data.Numbers.Primes (isPrime)
 -- Here's the gist
 -- the comprehensions are type Maybe String
 -- Data.SemiGroup imports 
-fizzbuzz :: Integer -> Either FibError String
+fizzbuzz :: Integer -> Either FizzError String
 fizzbuzz i = Right $ fromMaybe (show i) $ getOption fizzbuzz'
   where
     fizzbuzz' = 
@@ -29,7 +29,7 @@ fizzbuzz i = Right $ fromMaybe (show i) $ getOption fizzbuzz'
       ["fizzbuzz " | isPrime i]
 
 -- https://wiki.haskell.org/The_Fibonacci_sequence#Constant-time_implementations
-fib :: Integer -> Either FibError Integer
+fib :: Integer -> Either FizzError Integer
 fib n = Right (round $ phi ** fromIntegral n / sq5)
   where
     sq5 = sqrt 5 :: Double
@@ -39,10 +39,10 @@ fib n = Right (round $ phi ** fromIntegral n / sq5)
 -- Since Either is a Monad we can eliminate all the case statements
 -- we would otherwise have to use.
 
-fizzBuzzFib :: [String] -> Either FibError [String]
+fizzBuzzFib :: [String] -> Either FizzError [String]
 fizzBuzzFib str =
   mapM fizzbuzz          =<<
   mapM fib               =<<
   (\x -> Right [1 .. x]) =<<
   convertToDigit         =<<
-  onlyOne str
+  mustHaveOne str

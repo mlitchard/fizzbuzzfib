@@ -1,21 +1,22 @@
 module Input
-  (onlyOne
+  (mustHaveOne
   ,convertToDigit
   ) where
 
 
-import FibError
+import FizzError
 
 import Data.Char (isDigit)
 import Text.Read (read)
 
 
-onlyOne :: [String] -> Either FibError String
-onlyOne (arg:[]) = Right arg
-onlyOne _        = Left OnlyOne
+mustHaveOne :: [String] -> Either FizzError String
+mustHaveOne (arg:[]) = Right arg
+mustHaveOne []       = Left NoInput
+mustHaveOne _        = Left OnlyOne
  
 
-convertToDigit :: String -> Either FibError Integer
+convertToDigit :: String -> Either FizzError Integer
 convertToDigit str =
   let 
       test    = map isDigit str
