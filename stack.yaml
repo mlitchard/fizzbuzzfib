@@ -1,0 +1,5 @@
+flags: {}
+packages:
+- '.'
+extra-deps: [semigroups-0.17.0.1]
+resolver: lts-2.19
