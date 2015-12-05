@@ -26,11 +26,11 @@ fizzbuzz i = Right $ fromMaybe (show i) $ getOption fizzbuzz'
     fizzbuzz' = 
       ["fizz " | i `rem` 3 == 0] <>
       ["buzz " | i `rem` 5 == 0] <>
-      ["fizzbuzz " | isPrime i]
+      ["boogie down " | isPrime i]
 
 -- https://wiki.haskell.org/The_Fibonacci_sequence#Constant-time_implementations
 fib :: Integer -> Either FizzError Integer
-fib n = Right (round $ phi ** fromIntegral n / sq5)
+fib n = Right $ (round $ phi ** fromIntegral n / sq5)
   where
     sq5 = sqrt 5 :: Double
     phi = (1 + sq5) / 2

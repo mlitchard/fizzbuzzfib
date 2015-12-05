@@ -6,9 +6,9 @@ module Input
 
 import FizzError
 
-import Data.Char (isDigit)
-import Text.Read (read)
-
+import              Data.Char (isDigit)
+import              Text.Read (readMaybe)
+import              Data.Either.Utils (maybeToEither)
 
 mustHaveOne :: [String] -> Either FizzError String
 mustHaveOne (arg:[]) = Right arg
@@ -18,9 +18,4 @@ mustHaveOne _        = Left OnlyOne
 
 convertToDigit :: String -> Either FizzError Integer
 convertToDigit str =
-  let 
-      test    = map isDigit str
-      isBogus = elem False test
-  in case isBogus of
-       True  -> Left NotAnInteger
-       False -> Right (read str :: Integer)
+  maybeToEither NotAnInteger (readMaybe str)    

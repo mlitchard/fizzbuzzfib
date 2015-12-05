@@ -7,8 +7,4 @@ import System.Environment
 main :: IO ()
 main = do
   input <- getArgs
-  let res = 
-        case (fizzBuzzFib input) of
-          Left err   -> show err
-          Right res' -> show res'
-  putStrLn res
+  putStrLn $ either show unlines $ fizzBuzzFib input
