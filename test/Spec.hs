@@ -28,4 +28,4 @@ fibs =
   [Right 1,Right 1,Right 2,Right 3,Right 5,Right 8,Right 13,Right 21,Right 34,Right 55]
 
 fizzBuzzFibs =
-  Right ["1","1","fizzbuzz ","fizz fizzbuzz ","buzz fizzbuzz ","8","fizzbuzz ","fizz ","34","buzz "]
+  Right ["1","1","boogie down ","fizz boogie down ","buzz boogie down ","8","boogie down ","fizz ","34","buzz "]
