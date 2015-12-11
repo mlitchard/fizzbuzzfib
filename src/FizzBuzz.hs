@@ -24,17 +24,31 @@ fizzbuzz :: Integer -> Either FizzError String
 fizzbuzz i = Right $ fromMaybe (show i) $ getOption fizzbuzz'
   where
     fizzbuzz' = 
-      ["fizz " | i `rem` 3 == 0] <>
-      ["buzz " | i `rem` 5 == 0] <>
-      ["boogie down " | isPrime i]
+      ["fizz "        | i `rem` 3 == 0] <>
+      ["buzz "        | i `rem` 5 == 0] <>
+      ["boogie down " | isPrime i     ]
 
 -- https://wiki.haskell.org/The_Fibonacci_sequence#Constant-time_implementations
-fib :: Integer -> Either FizzError Integer
-fib n = Right $ (round $ phi ** fromIntegral n / sq5)
-  where
-    sq5 = sqrt 5 :: Double
-    phi = (1 + sq5) / 2
+--fib :: Integer -> Either FizzError Integer
+--fib n = Right $ (round $ phi ** fromIntegral n / sq5)
+--  where
+--    sq5 = sqrt 5 :: Double
+--    phi = (1 + sq5) / 2
 
+fib :: Integer -> Either FizzError Integer
+fib n = Right $ snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl divs n
+  where
+    unfoldl f x = 
+      case f x of
+        Nothing     -> []
+        Just (u, v) -> unfoldl f v ++ [u]
+ 
+    divs 0 = Nothing
+    divs k = Just (uncurry (flip (,)) (k `divMod` 2))
+ 
+    fib' (f, g) p
+      | p         = (f*(f+2*g), f^2 + g^2)
+      | otherwise = (f^2+g^2,   g*(2*f-g))
 
 -- Since Either is a Monad we can eliminate all the case statements
 -- we would otherwise have to use.
@@ -44,5 +58,5 @@ fizzBuzzFib str =
   mapM fizzbuzz          =<<
   mapM fib               =<<
   (\x -> Right [1 .. x]) =<<
-  convertToDigit         =<<
+  convertToNatural       =<<
   mustHaveOne str

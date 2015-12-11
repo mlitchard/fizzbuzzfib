@@ -1,5 +1,10 @@
+{-# LANGUAGE DeriveAnyClass #-}
+
 module FizzError
-  (FizzError (..)) where
+  (FizzError (..),
+  ) where
+
+import Data.Semigroup
 
 
 -- FizzBuzzFib can fail with bad input three ways: 
@@ -10,12 +15,14 @@ module FizzError
 
 data FizzError
   = NotAnInteger
+  | NotNatural
   | OnlyOne
   | NoInput
     deriving Eq
 
 instance Show FizzError where
   show NotAnInteger = "not an integer"
+  show NotNatural   = "input needs to be zero or greater"
   show OnlyOne      = "Just pass in one number that decribes how many" ++
                       " fibonacci numbers you want for fizzbuzz."
   show NoInput      = "You need to pass in an integer that describes how" ++

@@ -1,6 +1,6 @@
 module Input
   (mustHaveOne
-  ,convertToDigit
+  ,convertToNatural
   ) where
 
 
@@ -16,6 +16,15 @@ mustHaveOne []       = Left NoInput
 mustHaveOne _        = Left OnlyOne
  
 
-convertToDigit :: String -> Either FizzError Integer
-convertToDigit str =
-  maybeToEither NotAnInteger (readMaybe str)    
+convertToNatural :: String -> Either FizzError Integer
+convertToNatural str =
+  isNatural =<< toDigit
+  where
+    toDigit = maybeToEither NotAnInteger (readMaybe str)
+    isNatural int = boolToEither (int >= 0) NotNatural int
+
+boolToEither :: Bool -> a -> b -> Either a b
+boolToEither bool a b =
+  case bool of
+    True -> Right b
+    False -> Left a
