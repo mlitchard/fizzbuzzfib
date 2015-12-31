@@ -7,4 +7,4 @@ import System.Environment
 main :: IO ()
 main = do
   input <- getArgs
-  putStrLn $ either show (unlines . (map show)) $ fizzBuzzFib input
+  putStrLn $ either show (unlines . (map show)) $ fizzBuzzFib defaultFib input

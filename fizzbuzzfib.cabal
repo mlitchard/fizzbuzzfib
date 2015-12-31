@@ -18,6 +18,7 @@ library
   exposed-modules:     FizzBuzz
                       ,Input
                       ,FizzError
+                      ,FizzUtils
 
   build-depends:       base >= 4.7 && < 5
                      , primes == 0.2.1.0
@@ -32,6 +33,16 @@ executable fizzbuzzfib-exe
   build-depends:       base
                      , fizzbuzzfib
   default-language:    Haskell2010
+
+
+--executable fizzbuzz-utils-exe
+--  hs-source-dirs:      app
+--  main-is:             Utils.hs
+--  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+--  build-depends:       base
+--                     , fizzbuzzfib
+                     
+--  default-language:    Haskell2010
 
 test-suite fizzbuzzfib-test
   type:                exitcode-stdio-1.0

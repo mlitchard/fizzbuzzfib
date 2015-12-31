@@ -49,3 +49,5 @@ Without Docker -
 4) stack build
 
 5) /home/$HOME/fizzbuzzfib/.stack-work/install/x86_64-linux/lts-2.19/7.8.4/bin
+
+testing
