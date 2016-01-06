@@ -1,11 +1,12 @@
 {-# LANGUAGE MonadComprehensions #-}
 module FizzBuzz
     (fizzbuzz
-    ,fib 
+    ,fibb 
     ,fizzBuzzFib
     ) where
 
-import FizzError
+import FizzTypes
+--import FizzUtils
 import Input
 import Data.Semigroup ((<>),getOption)
 import Data.Maybe (fromMaybe)
@@ -35,6 +36,8 @@ fizzbuzz i = Right $ fromMaybe (show i) $ getOption fizzbuzz'
 --    sq5 = sqrt 5 :: Double
 --    phi = (1 + sq5) / 2
 
+fibb (Fibonator f) n = Right (f n)
+
 fib :: Integer -> Either FizzError Integer
 fib n = Right $ snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl divs n
   where
@@ -53,10 +56,12 @@ fib n = Right $ snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl 
 -- Since Either is a Monad we can eliminate all the case statements
 -- we would otherwise have to use.
 
-fizzBuzzFib :: [String] -> Either FizzError [String]
-fizzBuzzFib str =
-  mapM fizzbuzz          =<<
-  mapM fib               =<<
-  (\x -> Right [1 .. x]) =<<
-  convertToNatural       =<<
+fizzBuzzFib :: [String]                  -> 
+               Fibonator t               -> 
+               Either FizzError [String]
+fizzBuzzFib str fibonator =
+  mapM fizzbuzz           =<<
+  mapM (fibb fibonator)   =<<
+  (\x -> Right [1 .. x])  =<<
+  convertToNatural        =<<
   mustHaveOne str

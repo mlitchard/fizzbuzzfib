@@ -4,11 +4,12 @@ module Input
   ) where
 
 
-import FizzError
+import              FizzTypes
 
-import              Data.Char (isDigit)
+import              Data.Char (isDigit,toUpper)
 import              Text.Read (readMaybe)
 import              Data.Either.Utils (maybeToEither)
+import              Data.Maybe( fromMaybe )
 
 mustHaveOne :: [String] -> Either FizzError String
 mustHaveOne (arg:[]) = Right arg
@@ -28,3 +29,15 @@ boolToEither bool a b =
   case bool of
     True -> Right b
     False -> Left a
+
+
+
+-- one possibility for handling optional file args:
+-- -- if no file is provided as argument, read from stdin
+-- makeOutput :: Maybe String -> Flag
+-- makeOutput ms = Output ( fromMaybe "stdin" ms )
+--
+-- header = "Usage: main [OPTION...]"
+--buildFizzComp :: [String] -> Either FizzError Integer
+--buildFizzComp m_comps =
+--  map ( readMaybe NotFizzy $ map toUpper) m_comps 
