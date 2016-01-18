@@ -36,17 +36,17 @@ docker:
 
 # If true, the image will be pulled from the registry automatically, without
 # needing to run `stack docker pull`.  See the "security" section of this
-          #                                               # document for implications of enabling this.
-          #                                                 auto-pull: false
-          #
-          #                                                   # If true, the container will be run "detached" (in the background).  Refer
-          #                                                     # to the Docker users guide for information about how to manage containers.
-          #                                                       # This option would rarely make sense in the configuration file, but can be
-          #                                                         # useful on the command-line.  When true, implies `persistent`.`
-          #                                                           detach: false
-          #
-          #                                                             # If true, the container will not be deleted after it terminates.  Refer to
-          #                                                               # the Docker users guide for information about how to manage containers. This
+# document for implications of enabling this.
+#                                                 auto-pull: false
+
+# If true, the container will be run "detached" (in the background).  Refer
+# to the Docker users guide for information about how to manage containers.
+# This option would rarely make sense in the configuration file, but can be
+# useful on the command-line.  When true, implies `persistent`.`
+#                                                           detach: false
+
+# If true, the container will not be deleted after it terminates.  Refer to
+# the Docker users guide for information about how to manage containers. This
           #                                                                 # option would rarely make sense in the configuration file, but can be
           #                                                                   # useful on the command-line.  `detach` implies `persistent`.
           #                                                                     persistent: false

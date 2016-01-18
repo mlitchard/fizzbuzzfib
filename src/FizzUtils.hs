@@ -6,33 +6,51 @@ module FizzUtils
     , testfib
     , mod3
     , mod5
-    , fizz_prime
+    , fizzPrime
     , defaultFib
+    , defaultArgs
+    , configurator
     ) where
 
 import              FizzTypes
 import              FizzBuzz
-import              Input
-import              Data.Semigroup ((<>),getOption)
+--import              Input
+
+import              Data.Either.Utils (maybeToEither)
+import              Data.List (lookup)
+import              Data.Semigroup ((<>),getOption, Option)
 import              Data.Maybe (fromMaybe)
 import              Data.Numbers.Primes (isPrime)
 import              Control.Applicative
-ffw :: Fibonator FFW
-ffw = Fibonator fib_ffw
 
-bf :: Fibonator BF
-bf = Fibonator fib_bf
+fizzies = [ (MOD3,mod3)
+          , (MOD5,mod5)
+          , (PRIME,fizzPrime)
+          , (STANDARD, standard)
+          , (PLUSPRIME, plusPrime)
+          ] 
+
+fibbies :: [(FibbComp,Fibonator)]
+fibbies = [(LINEAR,ffw),(CONSTANT,bf)] 
+
+ffw :: Fibonator 
+ffw = fib_ffw
+
+bf :: Fibonator 
+bf = fib_bf
 
 defaultFib = ffw
 
-fib_ffw n =
- snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl divs n
-  where
+defaultArgs = Args{fizz = STANDARD, fib = LINEAR}
+
+fib_ffw n = 
+  snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl divs n
+   where
     unfoldl f x = 
       case f x of
         Nothing     -> []
         Just (u, v) -> unfoldl f v ++ [u]
- 
+
     divs 0 = Nothing
     divs k = Just (uncurry (flip (,)) (k `divMod` 2))
  
@@ -60,20 +78,24 @@ unFib (a, b) n
 isFib n = n == a where (k, a, b) = unFib (1, 1) n
 
 --mod3 :: ((Integral a) => (a -> Maybe String)) 
-mod3,mod5,fizz_prime :: (Integer -> Maybe String)
-mod3 i       = ["fizz "        | i `rem` 3 == 0]
-mod5 i       = ["buzz "        | i `rem` 5 == 0]
-fizz_prime i = ["boogie down " | isPrime i     ]
+mod3,mod5,fizzPrime :: Fizzanator 
+mod3 i = [ "fizz" | i `rem` 3 == 0 ]
+               
+mod5 i = [ "buzz" | i `rem` 5 == 0 ]
+fizzPrime i  = ["boogie down " | isPrime i     ]
+standard     = mod3 <> mod5
+plusPrime    = mod3 <> mod5 <> fizzPrime
 
-startOptions :: Options
-startOptions = Options
-  { fib_function = defaultFib
-  , fizz_comp    = Fizzanator (mod3 <> mod5 <> fizz_prime)
-  }
 
-options :: [ OptDescr (Options -> Options) ]
-options =
-  [ Option "
+configurator :: Args -> Either FizzError (Fibonator,Fizzanator)
+configurator args = 
+  (,) <$> findFib <*> findFizz
+  where
+    findFizz = maybeToEither NoFibImp (lookup fizzconf fizzies)
+    findFib  = maybeToEither NoFizzImp (lookup fibconf fibbies) 
+    fizzconf = fizz args
+    fibconf  = fib  args
+ 
 testfib fcn n =
   let (Right fib_res) = fibb fcn n
   in isFib fib_res

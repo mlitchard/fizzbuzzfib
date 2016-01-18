@@ -8,6 +8,7 @@ module FizzBuzz
 import FizzTypes
 --import FizzUtils
 import Input
+
 import Data.Semigroup ((<>),getOption)
 import Data.Maybe (fromMaybe)
 import Data.Numbers.Primes (isPrime)
@@ -21,13 +22,13 @@ import Data.Numbers.Primes (isPrime)
 -- Here's the gist
 -- the comprehensions are type Maybe String
 -- Data.SemiGroup imports 
-fizzbuzz :: Integer -> Either FizzError String
-fizzbuzz i = Right $ fromMaybe (show i) $ getOption fizzbuzz'
-  where
-    fizzbuzz' = 
-      ["fizz "        | i `rem` 3 == 0] <>
-      ["buzz "        | i `rem` 5 == 0] <>
-      ["boogie down " | isPrime i     ]
+fizzbuzz :: Integer -> Fizzanator -> Either FizzError String
+fizzbuzz i f = undefined --Right $ fromMaybe (show i) $ getOption (f i )
+--  where
+--    fizzbuzz' = 
+--      ["fizz "        | i `rem` 3 == 0] <>
+--      ["buzz "        | i `rem` 5 == 0] <>
+--      ["boogie down " | isPrime i     ]
 
 -- https://wiki.haskell.org/The_Fibonacci_sequence#Constant-time_implementations
 --fib :: Integer -> Either FizzError Integer
@@ -36,7 +37,7 @@ fizzbuzz i = Right $ fromMaybe (show i) $ getOption fizzbuzz'
 --    sq5 = sqrt 5 :: Double
 --    phi = (1 + sq5) / 2
 
-fibb (Fibonator f) n = Right (f n)
+fibb f n = Right (f n)
 
 fib :: Integer -> Either FizzError Integer
 fib n = Right $ snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl divs n
@@ -56,12 +57,12 @@ fib n = Right $ snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl 
 -- Since Either is a Monad we can eliminate all the case statements
 -- we would otherwise have to use.
 
-fizzBuzzFib :: [String]                  -> 
-               Fibonator t               -> 
+fizzBuzzFib :: [String]                 -> 
+               Fibonator                -> 
                Either FizzError [String]
-fizzBuzzFib str fibonator =
-  mapM fizzbuzz           =<<
-  mapM (fibb fibonator)   =<<
-  (\x -> Right [1 .. x])  =<<
-  convertToNatural        =<<
-  mustHaveOne str
+fizzBuzzFib str fibonator = undefined
+--  mapM fizzbuzz           =<<
+--  mapM (fibb fibonator)   =<<
+--  (\x -> Right [1 .. x])  =<<
+--  convertToNatural        =<<
+--  mustHaveOne str
