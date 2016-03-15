@@ -1,10 +1,6 @@
-{-# LANGUAGE Rank2Types #-}
-{-# LANGUAGE DeriveDataTypeable #-}
 
 module FizzTypes
   ( FizzError  (..)
-  , FFW
-  , BF
   , Fibonator  
   , Fizzanator 
   , FizzComp   (..)
@@ -14,11 +10,8 @@ module FizzTypes
 
 import              Data.Semigroup
 import              Control.Applicative
-import              Data.Typeable
-import              Data.Data
-data FFW -- Fastest Fib in the West 
-data BF  -- Binet's Formula
-         -- https://wiki.haskell.org/The_Fibonacci_sequen
+--import              Data.Typeable
+--import              Data.Data
 
 data FizzComp =
      MOD3
@@ -26,12 +19,12 @@ data FizzComp =
    | PRIME
    | STANDARD 
    | PLUSPRIME
-      deriving (Read,Eq,Show,Data,Typeable)
+      deriving (Read,Eq,Show) --,Data,Typeable)
 
 data FibbComp =
      LINEAR
    | CONSTANT
-      deriving (Read,Eq,Show,Data,Typeable)
+      deriving (Read,Eq,Show) --,Data,Typeable)
 
 type Fibonator  = (Integer -> Integer)
 type Fizzanator = (Integer -> Maybe String)
@@ -68,4 +61,5 @@ instance Show FizzError where
 data Args = Args
   { fizz :: FizzComp
   , fib  :: FibbComp
-  } deriving (Show,Data,Typeable)
+  , ub   :: Integer
+  } deriving (Show) --,Data,Typeable)

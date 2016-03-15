@@ -6,12 +6,13 @@ module FizzBuzz
     ) where
 
 import FizzTypes
---import FizzUtils
+import FizzUtils
 import Input
 
 import Data.Semigroup ((<>),getOption)
 import Data.Maybe (fromMaybe)
 import Data.Numbers.Primes (isPrime)
+import Control.Category ((>>>),(<<<))
 
 -- This is a modified version of 
 -- http://dave.fayr.am/posts/2012-10-4-finding-fizzbuzz.html
@@ -37,10 +38,10 @@ fizzbuzz i f = undefined --Right $ fromMaybe (show i) $ getOption (f i )
 --    sq5 = sqrt 5 :: Double
 --    phi = (1 + sq5) / 2
 
-fibb f n = Right (f n)
+--fibb f n = Right (f n)
 
-fib :: Integer -> Either FizzError Integer
-fib n = Right $ snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl divs n
+fibb :: Integer -> Either FizzError Integer
+fibb n = Right $ snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl divs n
   where
     unfoldl f x = 
       case f x of
@@ -57,10 +58,15 @@ fib n = Right $ snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl 
 -- Since Either is a Monad we can eliminate all the case statements
 -- we would otherwise have to use.
 
-fizzBuzzFib :: [String]                 -> 
-               Fibonator                -> 
-               Either FizzError [String]
-fizzBuzzFib str fibonator = undefined
+--fizzBuzzFib :: [String]                 -> 
+--               Args                     -> 
+--               Either FizzError [String]
+fizzBuzzFib str args = undefined
+--  let config = configurator args
+--  in convertToNatural str <<<
+--     (\x -> Right [1 .. x])  
+
+   
 --  mapM fizzbuzz           =<<
 --  mapM (fibb fibonator)   =<<
 --  (\x -> Right [1 .. x])  =<<

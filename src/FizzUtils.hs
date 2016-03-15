@@ -1,9 +1,7 @@
 {-# LANGUAGE MonadComprehensions #-}
-{-# LANGUAGE FlexibleContexts #-}
 module FizzUtils
     ( ffw
     , bf
-    , testfib
     , mod3
     , mod5
     , fizzPrime
@@ -13,8 +11,7 @@ module FizzUtils
     ) where
 
 import              FizzTypes
-import              FizzBuzz
---import              Input
+--import              FizzBuzz
 
 import              Data.Either.Utils (maybeToEither)
 import              Data.List (lookup)
@@ -41,7 +38,7 @@ bf = fib_bf
 
 defaultFib = ffw
 
-defaultArgs = Args{fizz = STANDARD, fib = LINEAR}
+defaultArgs = Args{fizz = STANDARD, fib = LINEAR, ub = 10}
 
 fib_ffw n = 
   snd . foldl fib' (1, 0) . map (toEnum . fromIntegral) $ unfoldl divs n
@@ -96,7 +93,7 @@ configurator args =
     fizzconf = fizz args
     fibconf  = fib  args
  
-testfib fcn n =
-  let (Right fib_res) = fibb fcn n
-  in isFib fib_res
+--testfib fcn n =
+--  let (Right fib_res) = fibb fcn n
+--  in isFib fib_res
       

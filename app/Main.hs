@@ -1,5 +1,5 @@
-{-# LANGUAGE Rank2Types #-}
-{-# LANGUAGE DeriveDataTypeable #-}
+--{-# LANGUAGE Rank2Types #-}
+--{-# LANGUAGE DeriveDataTypeable #-}
 
 module Main where
 
@@ -11,7 +11,7 @@ import              System.Environment ( getArgs )
 import              System.Console.GetOpt
 import              Data.Maybe (fromMaybe)
 import              Control.Applicative
-import              System.Console.CmdArgs
+--import              System.Console.CmdArgs
 --main :: IO ()
 --main = do
 --  input <- getArgs
@@ -20,9 +20,10 @@ import              System.Console.CmdArgs
 
 main :: IO ()
 main = do
-  print =<< cmdArgs defaultArgs
+--  print =<< cmdArgs defaultArgs
 --  input <- getArgs
---  return ()
+--  print =<< cmdArgs input
+  return ()
 
 
 
